@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Networking\Networking.csproj" />
+    <ProjectReference Include="..\SmartView2.Core\SmartView2.Core.csproj" />
+    <ProjectReference Include="..\UPnP\UPnP.csproj" />
+    <ProjectReference Include="..\Wrapper\Wrapper.csproj" />
+  </ItemGroup>
+
+</Project>

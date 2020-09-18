@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartView2.Core\SmartView2.Core.csproj" />
+    <ProjectReference Include="..\SmartView2.Devices\SmartView2.Devices.csproj" />
+    <ProjectReference Include="..\SocketIOClient\SocketIOClient.csproj" />
+  </ItemGroup>
+
+</Project>
