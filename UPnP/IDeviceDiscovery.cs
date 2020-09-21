@@ -5,6 +5,7 @@
 // Assembly location: C:\Users\Mark\Desktop\Samsung-RemoteControl-master\Drivers\UPnP.dll
 
 using System;
+using UPnP.DataContracts;
 
 namespace UPnP
 {
@@ -13,6 +14,8 @@ namespace UPnP
     void Scan();
 
     void Refresh();
+
+    DeviceInfo[] GetFoundTVDeviceInfo();
 
     event EventHandler<DeviceInfoEventArgs> DeviceConnected;
 

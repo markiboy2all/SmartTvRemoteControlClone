@@ -8,6 +8,7 @@ using Networking;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using UPnP.DataContracts;
@@ -189,5 +190,10 @@ namespace UPnP
         return;
       deviceDisconnected(sender, e);
     }
-  }
+
+        public DeviceInfo[] GetFoundTVDeviceInfo()
+        {
+            return devicePool.ToArray();
+        }
+    }
 }

@@ -5,11 +5,16 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="ConfigExtensions\WritableJsonConfigurationProvider.cs~RF1cfe99ba.TMP" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.8" />
@@ -18,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\multiscreen-windows-api-csharp\multiscreen-windows-api-csharp.csproj" />
     <ProjectReference Include="..\Networking.Native\Networking.Native.csproj" />
+    <ProjectReference Include="..\UIFoundation\UIFoundation.csproj" />
     <ProjectReference Include="..\Wrapper\Wrapper.csproj" />
   </ItemGroup>
 

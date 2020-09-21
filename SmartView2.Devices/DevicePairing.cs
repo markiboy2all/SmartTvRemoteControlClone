@@ -76,7 +76,7 @@ namespace SmartView2.Devices
         return string.Empty;
       }
       this.sessionId = await this.AcknowledgeExchangeAsync(transport, address.Host, 8080, this.spcApiBridge, requestId);
-      this.StartCompanionService(transport, address.Host);
+      //this.StartCompanionService(transport, address.Host);
       this.isPairingStarted = true;
       return this.sessionId.ToString();
     }
@@ -100,7 +100,7 @@ namespace SmartView2.Devices
       }
       await this.ClosePinPageOnTvAsync(transport, this.currentAddress.Host, this.currentAddress.Port);
       this.sessionId = await this.AcknowledgeExchangeAsync(transport, this.currentAddress.Host, this.currentAddress.Port, this.spcApiBridge, requestId);
-      this.StartCompanionService(transport, this.currentAddress.Host);
+      //this.StartCompanionService(transport, this.currentAddress.Host);
       return this.sessionId.ToString();
     }
 

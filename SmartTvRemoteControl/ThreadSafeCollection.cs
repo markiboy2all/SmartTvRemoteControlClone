@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SmartTvRemoteControl
 {
-    class ThreadSafeCollection<T> : ICollection<T>, IEnumerable<T>, IEnumerable
+    public class ThreadSafeCollection<T> : ICollection<T>, IEnumerable<T>, IEnumerable
     {
         //private ICollection<T> collection;
         private readonly ICollection<T> collection = new List<T>();

@@ -5,6 +5,8 @@ using SmartTvRemoteControl.ConfigExtensions;
 using SmartView2.Devices;
 using System;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using UPnP;
 using Wrapper;
 using ServiceCollection = Microsoft.Extensions.DependencyInjection.ServiceCollection;
@@ -16,13 +18,25 @@ namespace SmartTvRemoteControl
         public static IConfigurationRoot configuration;
         private static DeviceController deviceController;
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             ServiceCollection serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
             LoadController();
+            var devices = await deviceController.ExecuteDiscovery();
+            while(devices.Length == 0)
+            {
+                devices = await deviceController.ExecuteDiscovery();
+            }
+            await deviceController.ConnectToDevice(devices.First());
+            Console.WriteLine("Enter PIN");
+            var pin = Console.ReadLine();
+            await deviceController.SetPin(pin);
+            Console.WriteLine(deviceController.CurrentDevice.CurrentSource.Title);
         }
+
+
 
         static void LoadController()
         {

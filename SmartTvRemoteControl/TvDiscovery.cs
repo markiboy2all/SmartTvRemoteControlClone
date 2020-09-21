@@ -3,6 +3,7 @@ using SmartView2.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using UPnP;
@@ -18,7 +19,7 @@ namespace SmartTvRemoteControl
 
         private DevicePool devicePool;
 
-        private ThreadSafeCollection<TvDiscovery.Tv2014InitInfo> foundTvs = new ThreadSafeCollection<TvDiscovery.Tv2014InitInfo>();
+        private ThreadSafeCollection<Tv2014InitInfo> foundTvs = new ThreadSafeCollection<Tv2014InitInfo>();
 
 
 
@@ -35,6 +36,11 @@ namespace SmartTvRemoteControl
             this.devicePool = new DevicePool();
             this.devicePool.DeviceAdded += new EventHandler<DeviceInfoEventArgs>(this.devicePool_DeviceAdded);
             this.devicePool.DeviceRemoved += new EventHandler<DeviceInfoEventArgs>(this.devicePool_DeviceRemoved);
+        }
+
+        public DeviceInfo[] GetFoundTVDeviceInfo()
+        {
+            return foundTvs.Select(t => t.DeviceInfo).ToArray();
         }
 
         private void upnpDiscovery_DeviceConnected(object sender, DeviceInfoEventArgs e)
@@ -55,6 +61,19 @@ namespace SmartTvRemoteControl
             }
             Console.WriteLine("Pre 2014 Samsung TV found");
             this.devicePool.Add(e.DeviceInfo);
+        }
+
+        public static bool IsTv2014(DeviceInfo deviceInfo)
+        {
+            bool flag;
+            using (TextReader stringReader = new StringReader(deviceInfo.SourceXml))
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.Load(stringReader);
+                XmlNodeList elementsByTagName = xmlDocument.GetElementsByTagName("Capability", "http://www.sec.co.kr/dlna");
+                flag = (elementsByTagName == null || elementsByTagName.Count == 0 ? false : true);
+            }
+            return flag;
         }
 
         private static TvDiscovery.Tv2014InitInfo GetTv2014Data(DeviceInfo deviceInfo)
@@ -148,7 +167,7 @@ namespace SmartTvRemoteControl
 
         public void Scan()
         {
-            throw new NotImplementedException();
+            upnpDiscovery.Scan();
         }
 
         private class Tv2014InitInfo
